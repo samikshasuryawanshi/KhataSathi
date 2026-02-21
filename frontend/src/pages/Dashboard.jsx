@@ -94,10 +94,10 @@ const Dashboard = () => {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="card relative overflow-hidden group"
+            className="card relative overflow-hidden group p-5 sm:p-6"
         >
-            <div className={`absolute top-0 right-0 p-3 rounded-bl-2xl bg-opacity-10 ${color}`}>
-                <Icon className="h-6 w-6" />
+            <div className={`absolute top-0 right-0 p-2 sm:p-3 rounded-bl-2xl bg-opacity-10 ${color}`}>
+                <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <p className="text-primary-grey font-medium text-sm">{title}</p>
             <h3 className="text-2xl font-bold mt-2">₹ {amount.toLocaleString('en-IN')}</h3>
@@ -150,7 +150,7 @@ const Dashboard = () => {
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: idx * 0.1 }}
                                     key={expense.id}
-                                    className="card flex items-center justify-between hover:border-primary-gold/30 transition-colors"
+                                    className="card flex items-center justify-between hover:border-primary-gold/30 transition-colors p-4 sm:p-6"
                                 >
                                     <div className="flex items-center space-x-4">
                                         <div className={`p-3 rounded-xl ${Cat.color}`}>
@@ -186,12 +186,12 @@ const Dashboard = () => {
                 {/* Quick Insight / Placeholder for Chart */}
                 <div className="space-y-6">
                     <h2 className="text-xl font-bold">Expense Breakdown</h2>
-                    <div className="card h-[400px] flex items-center justify-center border-dashed border-2">
-                        <div className="text-center">
+                    <div className="card h-[300px] sm:h-[400px] flex items-center justify-center border-dashed border-2">
+                        <div className="text-center p-4">
                             <div className="bg-primary-gold/10 p-4 rounded-full inline-block mb-4">
-                                <PieChart className="h-10 w-10 text-primary-gold" />
+                                <PieChart className="h-8 w-8 sm:h-10 sm:w-10 text-primary-gold" />
                             </div>
-                            <p className="text-muted font-medium italic px-6">
+                            <p className="text-muted font-medium italic text-sm sm:text-base px-2">
                                 Charts and deep analytics are coming in the next update!
                             </p>
                         </div>

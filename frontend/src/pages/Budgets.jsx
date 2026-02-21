@@ -133,27 +133,27 @@ const Budgets = () => {
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             key={budget.id}
-                            className="card group"
+                            className="card group p-5 sm:p-6"
                         >
-                            <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center justify-between mb-5 sm:mb-6">
                                 <div className="flex items-center space-x-3">
-                                    <div className={`p-3 rounded-xl ${Cat.bg} ${Cat.color} dark:bg-white/5`}>
-                                        <Cat.icon className="h-6 w-6" />
+                                    <div className={`p-2.5 sm:p-3 rounded-xl ${Cat.bg} ${Cat.color} dark:bg-white/5`}>
+                                        <Cat.icon className="h-5 w-5 sm:h-6 sm:w-6" />
                                     </div>
-                                    <h3 className="font-bold text-lg">{budget.category}</h3>
+                                    <h3 className="font-bold text-base sm:text-lg">{budget.category}</h3>
                                 </div>
                                 <button
                                     onClick={() => handleDeleteBudget(budget.id)}
-                                    className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                                    className="p-1.5 sm:p-2 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors md:opacity-0 group-hover:opacity-100"
                                 >
-                                    <Trash2 className="h-5 w-5" />
+                                    <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
                                 </button>
                             </div>
 
                             <div className="space-y-4">
-                                <div className="flex justify-between text-sm font-bold">
+                                <div className="flex justify-between text-[11px] sm:text-sm font-bold">
                                     <span className="text-muted uppercase tracking-wider">Spent</span>
-                                    <span className={isOver ? 'text-red-600' : ''}>
+                                    <span className={`font-sans ${isOver ? 'text-red-600' : ''}`}>
                                         ₹{spent.toLocaleString()} / ₹{budget.amount.toLocaleString()}
                                     </span>
                                 </div>

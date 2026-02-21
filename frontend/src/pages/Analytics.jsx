@@ -81,9 +81,9 @@ const Analytics = () => {
                             Income vs Expenses
                         </h2>
                     </div>
-                    <div className="h-[350px] w-full">
+                    <div className="h-[300px] sm:h-[350px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={monthlyData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                            <BarChart data={monthlyData} margin={{ top: 20, right: 10, left: 0, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={darkMode ? 'rgba(255,255,255,0.05)' : '#F1F1F1'} />
                                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fontWeight: 600, fill: darkMode ? '#9CA3AF' : '#6B7280' }} />
                                 <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fontWeight: 600, fill: darkMode ? '#9CA3AF' : '#6B7280' }} />
@@ -114,15 +114,15 @@ const Analytics = () => {
                             Spending by Category
                         </h2>
                     </div>
-                    <div className="h-[350px] w-full">
+                    <div className="h-[300px] sm:h-[350px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie
                                     data={categoryData}
                                     cx="50%"
                                     cy="50%"
-                                    innerRadius={80}
-                                    outerRadius={110}
+                                    innerRadius={60}
+                                    outerRadius={90}
                                     paddingAngle={8}
                                     dataKey="value"
                                     stroke="none"
@@ -166,16 +166,16 @@ const Analytics = () => {
                     </div>
                 </div>
 
-                <div className="card md:col-span-2 flex flex-row items-center justify-between border-primary-gold/20 dark:border-white/5 bg-primary-gold/5 dark:bg-primary-gold/10">
-                    <div className="space-y-2">
+                <div className="card md:col-span-2 flex flex-col sm:flex-row items-center justify-between gap-6 border-primary-gold/20 dark:border-white/5 bg-primary-gold/5 dark:bg-primary-gold/10">
+                    <div className="space-y-2 w-full">
                         <h3 className="text-xl font-bold">Monthly Spending Limit</h3>
-                        <p className="text-muted font-medium">You have spent 68% of your ideal budget this month.</p>
-                        <div className="w-full bg-gray-200 dark:bg-white/10 h-3 rounded-full mt-4 overflow-hidden max-w-md">
+                        <p className="text-muted font-medium text-sm sm:text-base">You have spent 68% of your ideal budget this month.</p>
+                        <div className="w-full bg-gray-200 dark:bg-white/10 h-3 rounded-full mt-4 overflow-hidden">
                             <div className="bg-primary-gold h-full rounded-full" style={{ width: '68%' }}></div>
                         </div>
                     </div>
-                    <div className="hidden sm:block">
-                        <div className="h-20 w-20 rounded-full border-8 border-primary-gold border-t-transparent animate-spin-slow"></div>
+                    <div className="shrink-0">
+                        <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full border-8 border-primary-gold border-t-transparent animate-spin-slow"></div>
                     </div>
                 </div>
             </div>

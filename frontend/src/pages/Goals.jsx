@@ -100,39 +100,39 @@ const Goals = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             key={goal.id}
-                            className="card flex flex-col justify-between group h-full"
+                            className="card flex flex-col justify-between group h-full p-5 sm:p-8"
                         >
                             <div>
-                                <div className="flex items-start justify-between mb-6">
-                                    <div className="flex items-center space-x-4">
-                                        <div className={`p-4 rounded-2xl ${isCompleted ? 'bg-green-100 dark:bg-green-900/20 text-green-600' : 'bg-primary-gold/10 text-primary-gold'}`}>
-                                            {isCompleted ? <Trophy className="h-8 w-8" /> : <Target className="h-8 w-8" />}
+                                <div className="flex items-start justify-between mb-5 sm:mb-6">
+                                    <div className="flex items-center space-x-3 sm:space-x-4">
+                                        <div className={`p-3 sm:p-4 rounded-2xl ${isCompleted ? 'bg-green-100 dark:bg-green-900/20 text-green-600' : 'bg-primary-gold/10 text-primary-gold'}`}>
+                                            {isCompleted ? <Trophy className="h-6 w-6 sm:h-8 sm:w-8" /> : <Target className="h-6 w-6 sm:h-8 sm:w-8" />}
                                         </div>
                                         <div>
-                                            <h3 className="font-bold text-xl">{goal.title}</h3>
-                                            <div className="flex items-center text-muted text-xs font-bold mt-1 uppercase tracking-widest">
-                                                <Calendar className="h-3 w-3 mr-1" />
+                                            <h3 className="font-bold text-lg sm:text-xl">{goal.title}</h3>
+                                            <div className="flex items-center text-muted text-[10px] sm:text-xs font-bold mt-1 uppercase tracking-widest">
+                                                <Calendar className="h-2.5 w-2.5 sm:h-3 sm:w-3 mr-1" />
                                                 By {new Date(goal.deadline).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' })}
                                             </div>
                                         </div>
                                     </div>
                                     <button
                                         onClick={() => handleDeleteGoal(goal.id)}
-                                        className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all opacity-0 group-hover:opacity-100"
+                                        className="p-1.5 sm:p-2 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl transition-all md:opacity-0 group-hover:opacity-100"
                                     >
-                                        <Trash2 className="h-5 w-5" />
+                                        <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
                                     </button>
                                 </div>
 
                                 <div className="space-y-4">
                                     <div className="flex justify-between items-end">
                                         <div className="space-y-1">
-                                            <p className="text-muted text-xs font-bold uppercase tracking-widest">Saved So Far</p>
-                                            <p className="text-2xl font-black">₹{goal.currentAmount.toLocaleString()}</p>
+                                            <p className="text-muted text-[10px] sm:text-xs font-bold uppercase tracking-widest">Saved So Far</p>
+                                            <p className="text-xl sm:text-2xl font-black">₹{goal.currentAmount.toLocaleString()}</p>
                                         </div>
                                         <div className="text-right space-y-1">
-                                            <p className="text-muted text-xs font-bold uppercase tracking-widest">Target</p>
-                                            <p className="text-lg font-bold text-primary-gold">₹{goal.targetAmount.toLocaleString()}</p>
+                                            <p className="text-muted text-[10px] sm:text-xs font-bold uppercase tracking-widest">Target</p>
+                                            <p className="text-base sm:text-lg font-bold text-primary-gold">₹{goal.targetAmount.toLocaleString()}</p>
                                         </div>
                                     </div>
 
@@ -151,18 +151,18 @@ const Goals = () => {
                                 </div>
                             </div>
 
-                            <div className="mt-8 pt-6 border-t border-gray-100 dark:border-white/5 flex items-center space-x-4">
+                            <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-gray-100 dark:border-white/5 flex flex-col sm:flex-row items-center gap-4">
                                 <input
                                     type="range"
                                     min="0"
                                     max={goal.targetAmount}
                                     value={goal.currentAmount}
                                     onChange={(e) => handleUpdateProgress(goal.id, e.target.value)}
-                                    className="flex-1 accent-primary-gold h-2 bg-gray-100 dark:bg-white/5 rounded-lg appearance-none cursor-pointer"
+                                    className="w-full accent-primary-gold h-2 bg-gray-100 dark:bg-white/5 rounded-lg appearance-none cursor-pointer"
                                 />
-                                <div className="flex items-center space-x-1 text-primary-gold font-bold text-sm bg-primary-gold/10 px-3 py-1.5 rounded-lg whitespace-nowrap">
+                                <div className="flex items-center space-x-1 text-primary-gold font-bold text-[10px] sm:text-sm bg-primary-gold/10 px-3 py-1.5 rounded-lg whitespace-nowrap self-end sm:self-center">
                                     <span>Update Progress</span>
-                                    <ChevronRight className="h-4 w-4" />
+                                    <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
                                 </div>
                             </div>
                         </motion.div>
