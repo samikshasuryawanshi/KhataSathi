@@ -134,9 +134,10 @@ const History = () => {
                 </div>
             </div>
 
-            {/* Table */}
+            {/* Table / List View Wrapper */}
             <div className="card !p-0 overflow-hidden border-none shadow-2xl dark:shadow-black/50">
-                <div className="overflow-x-auto">
+                {/* Desktop Table */}
+                <div className="hidden md:block overflow-x-auto">
                     <table className="w-full text-left">
                         <thead className="bg-gray-50 dark:bg-black/40 border-b border-gray-100 dark:border-white/5">
                             <tr>
@@ -200,26 +201,73 @@ const History = () => {
                             ))}
                         </tbody>
                     </table>
-
-                    {(loading || filtered.length === 0) && (
-                        <div className="py-20 text-center">
-                            {loading ? (
-                                <div className="flex flex-col items-center">
-                                    <div className="w-12 h-12 border-4 border-primary-gold border-t-transparent rounded-full animate-spin"></div>
-                                    <p className="mt-4 text-primary-grey font-medium">Crunching your transactions...</p>
-                                </div>
-                            ) : (
-                                <div className="max-w-xs mx-auto">
-                                    <div className="bg-gray-100 dark:bg-white/5 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                        <Search className="h-8 w-8 text-gray-400" />
-                                    </div>
-                                    <p className="text-muted font-bold text-lg">No matches found</p>
-                                    <p className="text-sm text-gray-400 mt-1">Try adjusting your filters or search terms.</p>
-                                </div>
-                            )}
-                        </div>
-                    )}
                 </div>
+
+                {/* Mobile Card List */}
+                <div className="md:hidden divide-y divide-gray-100 dark:divide-white/5">
+                    {filtered.map((item, idx) => (
+                        <motion.div
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: idx * 0.05 }}
+                            key={item.id}
+                            className="p-4 space-y-3 font-sans"
+                        >
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <p className="text-sm font-bold capitalize">{item.title}</p>
+                                    <p className="text-[10px] text-muted font-bold uppercase tracking-widest mt-0.5">
+                                        {item.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                    </p>
+                                </div>
+                                <div className={`text-right font-bold text-base ${item.type === 'income' ? 'text-green-600' : ''}`}>
+                                    {item.type === 'income' ? '+' : '-'} ₹{Number(item.amount).toLocaleString('en-IN')}
+                                </div>
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 dark:bg-white/5 text-muted">
+                                    {item.category}
+                                </span>
+                                <div className="flex items-center space-x-2">
+                                    {item.image && (
+                                        <button
+                                            onClick={() => setViewImage(item.image)}
+                                            className="p-1.5 text-primary-gold hover:bg-primary-gold/10 rounded-lg"
+                                        >
+                                            <Eye className="h-4 w-4" />
+                                        </button>
+                                    )}
+                                    <button
+                                        onClick={() => handleDelete(item.id)}
+                                        className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50/50 rounded-lg"
+                                    >
+                                        <Trash2 className="h-4 w-4" />
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+
+                {/* Loading / Empty States */}
+                {(loading || filtered.length === 0) && (
+                    <div className="py-20 text-center">
+                        {loading ? (
+                            <div className="flex flex-col items-center">
+                                <div className="w-12 h-12 border-4 border-primary-gold border-t-transparent rounded-full animate-spin"></div>
+                                <p className="mt-4 text-primary-grey font-medium">Crunching your transactions...</p>
+                            </div>
+                        ) : (
+                            <div className="max-w-xs mx-auto">
+                                <div className="bg-gray-100 dark:bg-white/5 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <Search className="h-8 w-8 text-gray-400" />
+                                </div>
+                                <p className="text-muted font-bold text-lg">No matches found</p>
+                                <p className="text-sm text-gray-400 mt-1">Try adjusting your filters or search terms.</p>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* Image Modal */}
@@ -232,7 +280,10 @@ const History = () => {
                         className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
                         onClick={() => setViewImage(null)}
                     >
-                        <button className="absolute top-6 right-6 text-white p-3 hover:bg-white/10 rounded-full transition-colors">
+                        <button
+                            className="absolute top-6 right-6 text-white p-3 hover:bg-white/10 rounded-full transition-colors"
+                            onClick={() => setViewImage(null)}
+                        >
                             <X className="h-8 w-8" />
                         </button>
                         <motion.img

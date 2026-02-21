@@ -48,7 +48,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             )}
 
             <aside className={twMerge(
-                "fixed lg:static inset-y-0 left-0 w-72 bg-background text-foreground z-50 transform transition-all duration-300 lg:transform-none border-r border-gray-100 dark:border-white/5",
+                "fixed inset-y-0 left-0 w-72 bg-background text-foreground z-50 transform transition-all duration-300 border-r border-gray-100 dark:border-white/5",
+                "lg:static lg:translate-x-0 lg:block",
                 isOpen ? "translate-x-0" : "-translate-x-full"
             )}>
                 <div className="flex flex-col h-full">

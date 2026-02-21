@@ -71,37 +71,37 @@ const Profile = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Left Card: Account Summary */}
                 <div className="lg:col-span-1 space-y-6">
-                    <div className="card text-center py-10 relative overflow-hidden">
+                    <div className="card text-center py-6 sm:py-10 relative overflow-hidden">
                         <div className="absolute top-0 left-0 w-full h-2 bg-primary-gold"></div>
                         <div className="relative inline-block group">
                             <img
                                 src={preview || `https://ui-avatars.com/api/?name=${formData.name}&background=E2AF2F&color=000`}
                                 alt="Profile"
-                                className="h-32 w-32 rounded-3xl object-cover ring-4 ring-gray-50 dark:ring-white/5 shadow-xl mx-auto transition-transform group-hover:scale-105"
+                                className="h-24 w-24 sm:h-32 sm:w-32 rounded-3xl object-cover ring-4 ring-gray-50 dark:ring-white/5 shadow-xl mx-auto transition-transform group-hover:scale-105"
                             />
-                            <label className="absolute bottom-[-8px] right-[-8px] bg-black dark:bg-primary-gold text-white dark:text-black p-2.5 rounded-2xl cursor-pointer hover:opacity-90 transition-colors shadow-lg border-2 border-white dark:border-black">
-                                <Camera className="h-5 w-5" />
+                            <label className="absolute bottom-[-10px] right-[-10px] bg-black dark:bg-primary-gold text-white dark:text-black p-2 sm:p-2.5 rounded-2xl cursor-pointer hover:opacity-90 transition-colors shadow-lg border-2 border-white dark:border-black">
+                                <Camera className="h-4 w-4 sm:h-5 sm:w-5" />
                                 <input type="file" onChange={handleImageChange} className="hidden" accept="image/*" />
                             </label>
                         </div>
 
-                        <div className="mt-8">
-                            <h2 className="text-2xl font-bold truncate px-4">{formData.name}</h2>
-                            <p className="text-muted font-medium text-sm mt-1">{user?.email}</p>
+                        <div className="mt-6 sm:mt-8">
+                            <h2 className="text-xl sm:text-2xl font-bold truncate px-4">{formData.name}</h2>
+                            <p className="text-muted font-medium text-xs sm:text-sm mt-1">{user?.email}</p>
                         </div>
 
-                        <div className="mt-8 flex justify-center space-x-2">
-                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">
+                        <div className="mt-6 sm:mt-8 flex justify-center space-x-2 flex-wrap gap-2 px-2">
+                            <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold bg-green-100 text-green-700">
                                 <ShieldCheck className="h-3 w-3 mr-1" /> Verified
                             </span>
-                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-primary-gold/10 text-primary-gold">
+                            <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold bg-primary-gold/10 text-primary-gold">
                                 <Zap className="h-3 w-3 mr-1" /> Pro Member
                             </span>
                         </div>
                     </div>
 
-                    <div className="card bg-black dark:bg-[#1E1E1E] text-white p-8 border-none">
-                        <h3 className="font-bold text-lg mb-4">Quick Stats</h3>
+                    <div className="card bg-black dark:bg-[#1E1E1E] text-white p-6 sm:p-8 border-none">
+                        <h3 className="font-bold text-base sm:text-lg mb-4">Quick Stats</h3>
                         <div className="space-y-4">
                             <div className="flex justify-between items-center text-sm border-b border-white/10 pb-4">
                                 <span className="text-gray-400 font-medium">Joined Date</span>
@@ -117,18 +117,18 @@ const Profile = () => {
 
                 {/* Right Card: Form */}
                 <div className="lg:col-span-2 space-y-6">
-                    <div className="card shadow-2xl dark:shadow-black/50 overflow-hidden">
-                        <h3 className="text-xl font-bold mb-8 flex items-center">
-                            <User className="h-6 w-6 mr-3 text-primary-gold" />
+                    <div className="card shadow-2xl dark:shadow-black/50 overflow-hidden p-5 sm:p-8">
+                        <h3 className="text-lg sm:text-xl font-bold mb-6 sm:mb-8 flex items-center">
+                            <User className="h-5 w-5 sm:h-6 sm:w-6 mr-3 text-primary-gold" />
                             Personal Details
                         </h3>
 
                         <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                                 <div className="space-y-2">
-                                    <label className="text-sm font-bold flex items-center ml-1">Full Name</label>
+                                    <label className="text-xs sm:text-sm font-bold flex items-center ml-1">Full Name</label>
                                     <div className="relative">
-                                        <User className="absolute left-3 top-3.5 h-5 w-5 text-muted" />
+                                        <User className="absolute left-3 top-3.5 h-4 w-4 sm:h-5 sm:w-5 text-muted" />
                                         <input
                                             type="text"
                                             value={formData.name}
@@ -140,9 +140,9 @@ const Profile = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-sm font-bold flex items-center ml-1">Email (Read-only)</label>
+                                    <label className="text-xs sm:text-sm font-bold flex items-center ml-1">Email (Read-only)</label>
                                     <div className="relative">
-                                        <Mail className="absolute left-3 top-3.5 h-5 w-5 text-muted opacity-50" />
+                                        <Mail className="absolute left-3 top-3.5 h-4 w-4 sm:h-5 sm:w-5 text-muted opacity-50" />
                                         <input
                                             type="email"
                                             value={user?.email}
@@ -153,9 +153,9 @@ const Profile = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-sm font-bold flex items-center ml-1">Phone Number</label>
+                                    <label className="text-xs sm:text-sm font-bold flex items-center ml-1">Phone Number</label>
                                     <div className="relative">
-                                        <Phone className="absolute left-3 top-3.5 h-5 w-5 text-muted" />
+                                        <Phone className="absolute left-3 top-3.5 h-4 w-4 sm:h-5 sm:w-5 text-muted" />
                                         <input
                                             type="tel"
                                             value={formData.phone}
@@ -171,7 +171,7 @@ const Profile = () => {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="btn-yellow flex items-center justify-center space-x-2 py-4 px-8 shadow-xl shadow-primary-gold/20"
+                                    className="btn-yellow flex items-center justify-center space-x-2 py-3.5 sm:py-4 px-6 sm:px-8 shadow-xl shadow-primary-gold/20 w-full sm:w-auto"
                                 >
                                     {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
                                     <span>Save Changes</span>
