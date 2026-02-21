@@ -28,6 +28,8 @@ const Goals = () => {
         const unsubscribe = onSnapshot(q, (snapshot) => {
             setGoals(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
             setLoading(false);
+        }, (error) => {
+            console.error("Goals listener error:", error);
         });
 
         return unsubscribe;

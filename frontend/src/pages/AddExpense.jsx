@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { useAuth } from '../context/AuthContext';
 import { uploadToCloudinary } from '../services/cloudinary';
+import { sendNotification, checkBudgetAlerts } from '../services/notificationService';
 import {
     Plus,
     Image as ImageIcon,
@@ -78,6 +79,31 @@ const AddExpense = () => {
 
             // Add to Firestore
             const docRef = await addDoc(collection(db, 'expenses'), expenseData);
+
+            // Real-time Budget Check & Notification
+            if (formData.type === 'expense') {
+                const now = new Date();
+                const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+                // Fetch current expenses for the month
+                const eq = query(
+                    collection(db, 'expenses'),
+                    where('userId', '==', user.uid),
+                    where('date', '>=', startOfMonth)
+                );
+                const expenseSnap = await getDocs(eq);
+                const currentMonthExpenses = expenseSnap.docs.map(doc => ({
+                    ...doc.data(),
+                    date: doc.data().date.toDate()
+                }));
+
+                // Fetch budgets
+                const bq = query(collection(db, 'budgets'), where('userId', '==', user.uid));
+                const budgetSnap = await getDocs(bq);
+                const budgets = budgetSnap.docs.map(doc => doc.data());
+
+                await checkBudgetAlerts(user.uid, currentMonthExpenses, budgets);
+            }
 
             toast.success('Transaction added successfully!');
             navigate('/');

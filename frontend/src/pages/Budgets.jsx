@@ -46,6 +46,8 @@ const Budgets = () => {
         const bq = query(collection(db, 'budgets'), where('userId', '==', user.uid));
         const unsubscribeBudgets = onSnapshot(bq, (snapshot) => {
             setBudgets(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        }, (error) => {
+            console.error("Budgets listener error:", error);
         });
 
         // Fetch Expenses for this month
@@ -63,6 +65,8 @@ const Budgets = () => {
                 .filter(exp => exp.date >= startOfMonth);
             setExpenses(monthlyExpenses);
             setLoading(false);
+        }, (error) => {
+            console.error("Budgets expenses listener error:", error);
         });
 
         return () => {

@@ -58,6 +58,8 @@ const Analytics = () => {
             });
 
             setMonthlyData(Object.values(months).slice(-6));
+        }, (error) => {
+            console.error("Analytics listener error:", error);
         });
 
         return unsubscribe;

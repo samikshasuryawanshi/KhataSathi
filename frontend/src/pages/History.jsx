@@ -16,14 +16,17 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSearchParams } from 'react-router-dom';
 
 const History = () => {
     const { user } = useAuth();
     const [expenses, setExpenses] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filterCategory, setFilterCategory] = useState('All');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const queryParam = searchParams.get('q') || '';
+    const [search, setSearch] = useState(queryParam);
+    const [filter, setFilter] = useState('All');
     const [viewImage, setViewImage] = useState(null);
 
     const categories = ['All', 'Food', 'Shopping', 'Travel', 'Bills', 'Recharge', 'Rent', 'Salary', 'Other'];
@@ -46,21 +49,27 @@ const History = () => {
             setExpenses(data);
             setFiltered(data);
             setLoading(false);
+        }, (error) => {
+            console.error("History listener error:", error);
         });
 
         return unsubscribe;
     }, [user]);
 
     useEffect(() => {
+        setSearch(queryParam);
+    }, [queryParam]);
+
+    useEffect(() => {
         let result = expenses;
-        if (searchTerm) {
-            result = result.filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase()));
+        if (search) {
+            result = result.filter(e => e.title.toLowerCase().includes(search.toLowerCase()));
         }
-        if (filterCategory !== 'All') {
-            result = result.filter(e => e.category === filterCategory);
+        if (filter !== 'All') {
+            result = result.filter(e => e.category === filter);
         }
         setFiltered(result);
-    }, [searchTerm, filterCategory, expenses]);
+    }, [search, filter, expenses]);
 
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this transaction?')) {
@@ -111,26 +120,28 @@ const History = () => {
             </div>
 
             {/* Filters */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="relative md:col-span-2">
-                    <Search className="absolute left-4 top-3.5 h-5 w-5 text-muted" />
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="relative flex-1 md:max-w-md">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted" />
                     <input
                         type="text"
-                        placeholder="Search by title..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="input-field pl-12"
+                        placeholder="Search your records..."
+                        className="input-field pl-12 py-3"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                     />
                 </div>
-                <div className="relative">
-                    <Filter className="absolute left-4 top-3.5 h-5 w-5 text-muted" />
-                    <select
-                        value={filterCategory}
-                        onChange={(e) => setFilterCategory(e.target.value)}
-                        className="input-field pl-12 appearance-none cursor-pointer"
-                    >
-                        {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-                    </select>
+                <div className="flex flex-wrap items-center gap-3">
+                    <div className="relative">
+                        <Filter className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted pointer-events-none" />
+                        <select
+                            value={filter}
+                            onChange={(e) => setFilter(e.target.value)}
+                            className="input-field pl-9 py-2 pr-8 text-sm appearance-none cursor-pointer"
+                        >
+                            {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                    </div>
                 </div>
             </div>
 
