@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary-black: #000000;
+    --color-primary-dark-grey: #4A4A4A;
+    --color-primary-grey: #6E6E6E;
+    --color-primary-gold: #E2AF2F;
+    --color-primary-yellow: #FFD600;
+
+    --color-bg-light: #F8F9FA;
+    --color-bg-dark: #121212;
+    --color-card-dark: #1E1E1E;
+
+    --color-background: #F8F9FA;
+    --color-foreground: #000000;
+}
+
+.dark {
+    --color-background: #121212;
+    --color-foreground: #FFFFFF;
+}
+
+@layer base {
+    body {
+        @apply bg-background text-foreground font-sans transition-colors duration-300;
+    }
+
+    .dark body {
+        @apply bg-background text-foreground;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply text-black transition-colors duration-300;
+    }
+
+    .dark h1,
+    .dark h2,
+    .dark h3,
+    .dark h4,
+    .dark h5,
+    .dark h6 {
+        @apply text-white;
+    }
+
+    p,
+    span,
+    label {
+        @apply transition-colors duration-300;
+    }
+}
+
+@layer components {
+    .btn-yellow {
+        @apply bg-gradient-to-r from-[#E2AF2F] to-[#FFD600] text-black font-semibold py-2 px-4 rounded-lg transform transition active:scale-95 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .card {
+        @apply bg-white rounded-xl shadow-md p-6 border border-gray-100 transition-all duration-300;
+    }
+
+    .dark .card {
+        @apply bg-card-dark border-white/5 shadow-2xl shadow-black/40;
+    }
+
+    .input-field {
+        @apply w-full px-4 py-3 bg-white border border-gray-100 rounded-xl focus:ring-2 focus:ring-primary-gold outline-none transition-all shadow-sm text-black placeholder:text-gray-400;
+    }
+
+    .dark .input-field {
+        @apply bg-[#2A2A2A] border-white/10 text-white placeholder:text-gray-500;
+    }
+
+    .glass-card {
+        @apply bg-white/80 backdrop-blur-md rounded-xl border border-white/20 shadow-xl transition-all duration-300;
+    }
+
+    .dark .glass-card {
+        @apply bg-black/60 border-white/10 text-white shadow-black/50;
+    }
+
+    .text-muted {
+        @apply text-primary-grey;
+    }
+
+    .dark .text-muted {
+        @apply text-gray-400;
+    }
+}
